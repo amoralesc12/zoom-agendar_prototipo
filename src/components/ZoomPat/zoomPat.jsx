@@ -1,76 +1,81 @@
-import "./zoomPat.css"
-import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
+// // MyZoomPat.jsx
+import React, { useState, useEffect } from 'react';
+import "./zoomPat.css";
 import Form from 'react-bootstrap/Form';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Tab from 'react-bootstrap/Tab';
-function MyZoomPat()
-{
+import Button from 'react-bootstrap/Button';
+import services from '../utils/services';
 
-    
-    return(
-    <div style={{ margin:"30px",width: "70%" }}>
-        <div>
-            <h1 className="title-pacientes">Zoom</h1>
-        </div>
-        <Tab.Container defaultActiveKey="sesionesProgramadas">
-            <Nav justify variant="tabs">
-            <Nav.Item>
-                <Nav.Link eventKey="sesionesProgramadas">Sesiones Programadas</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="sesionesPasadas">Sesiones Pasadas</Nav.Link>
-            </Nav.Item>
-            </Nav>
-            <Tab.Content>
-            <Tab.Pane eventKey="sesionesProgramadas">
-                <Container fluid="md">
-                <Row>
-                <Col style={{ display:"flex", alignItems:"flex-end", padding:"12px", fontWeight:"bold"}}>
-                                <Form.Label>Hora de Inicio</Form.Label>
-                            </Col>
+function MyZoomPat() {
+  const [meetings, setMeetings] = useState([]);
 
-                            <Col style={{display:"flex", alignItems:"flex-end",padding:"12px",fontWeight:"bold"}} >
-                                <Form.Label>Tema</Form.Label>
-                            </Col>
+  useEffect(() => {
+    // Llamada a la función gMeeting al cargar el componente
+    services.gMeeting()
+      .then(meetingsData => {
+        console.log("Datos de las reuniones:", meetingsData);
+        setMeetings(meetingsData.meetings || []);
+      })
+      .catch(error => {
+        console.error("Error al obtener reuniones:", error);
+      });
+  }, []);
 
-                            <Col style={{display:"flex", alignItems:"flex-end",padding:"12px",fontWeight:"bold"}} >
-                                <Form.Label>ID de la reunion</Form.Label>
-                            </Col>
-                </Row>
-
-                
-                <Row>
-                            <Col >
-                                <Form.Label>dd num 00:00am/pm</Form.Label>
-                            </Col>
-
-                            <Col  >
-                                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                                <Form.Label>Tema (practica clinica)</Form.Label>
-                                {/*<Form.Control as="textarea" placeholder="Enter meeting description" rows={3} >*/}
-                                </Form.Group>
-                            </Col>
-                            <Col >
-                                <Form.Label>000 0000 0000</Form.Label>
-                            </Col>
-                            <Button style={{width:"63px"}} variant="outline-primary">Entrar</Button>
-                        </Row>
-                        
-                </Container>
-            </Tab.Pane>
-            <Tab.Pane eventKey="sesionesPasadas">
-                <Container fluid="md">
-                
-                </Container>
-            </Tab.Pane>
-            </Tab.Content>
-        </Tab.Container>
-        </div>
-
-    );
+  return (
+    <div style={{ margin: "30px", width: "70%" }}>
+      <div>
+        <h1 className="title-pacientes">Zoom</h1>
+      </div>
+      <Tabs
+        defaultActiveKey="sesiones"
+        transition={false}
+        id="noanim-tab-example"
+        className="mb-3"
+      >
+        <Tab eventKey="sesiones" title="Sesiones Programadas">
+          <Container fluid="md">
+            <Row>
+              <Col>
+                <Form.Label>Hora de Inicio</Form.Label>
+              </Col>
+              <Col>
+                <Form.Label>Tema</Form.Label>
+              </Col>
+              <Col>
+                <Form.Label>ID de la reunión</Form.Label>
+              </Col>
+              <Button style={{ width: "63px" }} variant="outline-primary">
+                Entrar
+              </Button>
+            </Row>
+            {/* Mostrar detalles de todas las reuniones */}
+            {meetings.map(meeting => (
+              <Row key={meeting.id}>
+                <Col>
+                  <Form.Label>{new Date(meeting.start_time).toLocaleTimeString()}</Form.Label>
+                </Col>
+                <Col>
+                  <Form.Label>{meeting.topic}</Form.Label>
+                </Col>
+                <Col>
+                  <Form.Label>{meeting.id}</Form.Label>
+                </Col>
+              </Row>
+            ))}
+          </Container>
+        </Tab>
+        <Tab eventKey="profile" title="Sesiones Pasadas">
+          <Container fluid="md">
+            ... Cargando Sesiones Pasadas
+          </Container>
+        </Tab>
+      </Tabs>
+    </div>
+  );
 }
 
 export default MyZoomPat;

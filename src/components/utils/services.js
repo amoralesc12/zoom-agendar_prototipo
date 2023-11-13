@@ -6,12 +6,12 @@ async function cMeeting()
   let data = JSON.stringify({
     "topic": "Sesionprueba2",
     "type": 2,
-    "start_time": "2023-10-27T12:10:10Z",
+    "start_time": "2023-11-11T12:10:10Z",
     "duration": "3",
     "settings": {
-      "host_video": true,
-      "participant_video": true,
-      "join_before_host": true,
+      "host_video": "true",
+      "participant_video": "true",
+      "join_before_host": "true",
       "mute_upon_entry": "true",
       "watermark": "true",
       "audio": "voip",
@@ -42,29 +42,20 @@ async function cMeeting()
     
 }
 
-async function gMeeting()
-{
-    let config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: 'https://api.zoom.us/v2/meetings/74040821263\n',
-        headers: { 
-          'Content-Type': 'application/json', 
-          'Authorization': 'Bearer eyJzdiI6IjAwMDAwMSIsImFsZyI6IkhTNTEyIiwidiI6IjIuMCIsImtpZCI6ImM3YmE0YjZmLTQxNDAtNDgzNy1hMmNjLWJhOWE2ODQyNzAxMCJ9.eyJ2ZXIiOjksImF1aWQiOiJhZWI4NjRkZWI2NmY5YWU1NDI0YzkyMzU5OGE3MDc2NSIsImNvZGUiOiJEak4xMGdRVXRnZkJfbkdTdk9YVGxLckppeU1IenduNUEiLCJpc3MiOiJ6bTpjaWQ6QlU0dHdBNjdUR2VEZ1VwakZLa0pxUSIsImdubyI6MCwidHlwZSI6MCwidGlkIjoxLCJhdWQiOiJodHRwczovL29hdXRoLnpvb20udXMiLCJ1aWQiOiI3SExXTU9GVVFQS0hTeGtZVTNaaEVBIiwibmJmIjoxNjk3ODgxMjY3LCJleHAiOjE2OTc4ODQ4NjcsImlhdCI6MTY5Nzg4MTI2NywiYWlkIjoiVjZUaUQtdHlRZ09mNTBudHF2dXZsdyJ9.szXyEGMpfbEhBBKIUseuT5uvNDpz92DF8e--EwpdmCqg-2Nwu-nOZKaQJr5YUSQWdTmOkYzf-KtH5fwmB8VBJA', 
-          'Cookie': '__cf_bm=dkoa8p.xFQRfkM0iGxizprIHxZGoEiErJptU7FkVn0w-1697881268-0-ARXNDN9QACCuSilGRTOUqr4hfsBRmeS1srCpKOvb1dzaypB4ST0w5+9yFKTWPTm24cxuNWUOti8zaW4pK3hKf/s=; _zm_cms_guid=MJ9KKU_9rc8ihhbnENDuLHw6oS-9O9xrUedu3Up3wavLE0vYK-itBV4e39tBf_Xc6-d74kXvRjZ7VGIZjhZiF734CilzM-E.hHcZz540a-tqHikc; _zm_mtk_guid=a806d0dfe0d04948bba5a789ccba1702; _zm_page_auth=us04_c_UJXpfCU-S3ulZ5nUR4YaVQ; _zm_ssid=us04_c_UjR4eAh4TU6dBJdIv2uPjg; cred=8630072A9F9159200A349EFB6CEDFA6A'
-        },
-        
-      };
-      
-      axios.request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+
+async function gMeeting(userId) {
+  try {
+    const response = await axios.get('http://localhost:8000/api/users/i0W0G-ymQ1qTNGqwHH5pag/meetings');
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener reuniones:", error);
+    throw error;
+  }
 }
 
+
+
+// getToken no es necesario se puede borrar
 async function getToken()
 {
   let config = {
@@ -91,6 +82,7 @@ async function getToken()
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     cMeeting,
-    getToken
+    getToken,
+    gMeeting
   };
   

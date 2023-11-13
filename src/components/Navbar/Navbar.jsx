@@ -16,32 +16,32 @@ function MyNavbar() {
 
                 <Nav className="flex-column">
                     <Nav.Link href="/dashboard" style={{ fontWeight: 'bold' }}>
-                        <i class="bi bi-house-door-fill" style={{marginRight: '10px', fontSize:'27px'}}></i>
+                        <i className="bi bi-house-door-fill" style={{marginRight: '10px', fontSize:'27px'}}></i>
                     <div></div>  Inicio
                     </Nav.Link>
 
                     <Nav.Link href="/anuncios" style={{ fontWeight: 'bold' }}>
-                    <i class="bi bi-megaphone-fill" style={{marginRight: '10px', fontSize:'27px'}}></i>
+                    <i className="bi bi-megaphone-fill" style={{marginRight: '10px', fontSize:'27px'}}></i>
                     <div></div>  Anuncios
                     </Nav.Link>
 
                     <Nav.Link href="/clases" style={{ fontWeight: 'bold' }}>
-                    <i class="bi bi-book-fill" style={{marginRight: '10px', fontSize:'27px'}}></i>
+                    <i className="bi bi-book-fill" style={{marginRight: '10px', fontSize:'27px'}}></i>
                     <div></div>  Clases
                     </Nav.Link>
 
                     <Nav.Link href="/calendar" style={{ fontWeight: 'bold' }}>
-                    <i class="bi bi-calendar-event-fill" style={{marginRight: '10px', fontSize:'27px'}}></i>
+                    <i className="bi bi-calendar-event-fill" style={{marginRight: '10px', fontSize:'27px'}}></i>
                     <div></div> Calendario
                     </Nav.Link>  {/*modulos son las clases y se muestran en tarjetitas*/ }
 
                     <Nav.Link href="/cuentas" style={{ fontWeight: 'bold' }}>
-                        <i class="bi bi-person-fill" style={{marginRight: '10px', fontSize:'27px'}}></i>
+                        <i className="bi bi-person-fill" style={{marginRight: '10px', fontSize:'27px'}}></i>
                         <div></div> Cuentas
                     </Nav.Link>
 
                     <Nav.Link href="/historial" style={{ fontWeight: 'bold' }}>
-                    <i class="bi bi-clock-fill" style={{marginRight: '10px', fontSize:'27px'}}></i>
+                    <i className="bi bi-clock-fill" style={{marginRight: '10px', fontSize:'27px'}}></i>
                     <div></div>  Historial
                     </Nav.Link>
                 </Nav>
